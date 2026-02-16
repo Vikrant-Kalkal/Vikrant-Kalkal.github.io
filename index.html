@@ -46,27 +46,26 @@ h1 span {
     text-align: center;
 }
 
-/* === 4 COLUMN SLIDER === */
+/* === HEADSHOT COLUMNS === */
 
-.carousel {
-    overflow: hidden;
-    width: 100%;
-}
-
-.track {
+.headshot-columns {
     display: flex;
-    animation: scroll 30s linear infinite;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
 }
 
-.track img {
-    width: 25%;
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.column img {
+    width: 100%;
+    height: auto;
     object-fit: cover;
-}
-
-/* Smooth continuous scroll */
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
 }
 
 /* === VIDEO === */
@@ -109,23 +108,16 @@ he brings depth, intensity and authenticity to every role.
 </p>
 </div>
 
-<!-- HEADSHOT CAROUSEL -->
+<!-- HEADSHOT COLUMNS -->
 <div class="section">
-<div class="carousel">
-<div class="track">
-
-<!-- First Set -->
-<img src="headshot1.jpg">
-<img src="headshot2.jpg">
-<img src="headshot3.jpg">
-<img src="headshot4.jpg">
-
-<!-- Duplicate First 4 For Smooth Loop -->
-<img src="headshot1.jpg">
-<img src="headshot2.jpg">
-<img src="headshot3.jpg">
-<img src="headshot4.jpg">
-
+<div class="headshot-columns">
+<div class="column">
+<img src="headshot1.jpg" alt="Headshot 1">
+<img src="headshot2.jpg" alt="Headshot 2">
+</div>
+<div class="column">
+<img src="headshot3.jpg" alt="Headshot 3">
+<img src="headshot4.jpg" alt="Headshot 4">
 </div>
 </div>
 </div>
