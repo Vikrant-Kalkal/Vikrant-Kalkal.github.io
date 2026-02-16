@@ -81,11 +81,42 @@ h1 span {
 
 .fade-img {
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
     height: auto;
     object-fit: cover;
     transition: opacity 1s ease-in-out;
     opacity: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        min-height: auto;
+    }
+    .left-column, .right-column {
+        flex: none;
+        padding: 10px;
+        justify-content: flex-start;
+    }
+    .center {
+        flex: none;
+        padding: 10px;
+        justify-content: flex-start;
+    }
+    .fade-img {
+        max-width: 250px;
+    }
+    h1 {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+    .section {
+        margin-bottom: 50px;
+    }
+    .video iframe {
+        height: 300px;
+    }
 }
 </style>
 </head>
