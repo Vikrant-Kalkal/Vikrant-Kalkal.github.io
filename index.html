@@ -68,6 +68,23 @@ h1 span {
     border-top: 1px solid #ddd;
     padding-top: 40px;
 }
+
+.slideshow {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
 </style>
 </head>
 
@@ -89,10 +106,17 @@ h1 span {
 </div>
 
 <!-- HEADSHOTS -->
-<div class="section gallery">
-    <img src="headshot1.jpg" alt="Headshot 1">
-    <img src="headshot2.jpg" alt="Headshot 2">
-    <img src="headshot3.jpg" alt="Headshot 3">
+<!-- HEADSHOT SLIDESHOW -->
+<div class="section">
+
+<div class="slideshow">
+
+<img src="headshot1.jpg" class="slide active">
+<img src="headshot2.jpg" class="slide">
+<img src="headshot3.jpg" class="slide">
+
+</div>
+
 </div>
 
 <!-- DEMO REEL -->
@@ -118,6 +142,17 @@ h1 span {
 </div>
 
 </div>
+<script>
+let slides = document.querySelectorAll('.slide');
+let current = 0;
 
+function nextSlide() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+}
+
+setInterval(nextSlide, 2000);
+</script>
 </body>
 </html>
