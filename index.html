@@ -15,12 +15,24 @@ body {
     color: #111;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
 }
 
-.container {
-    max-width: 1100px;
-    margin: 100px auto;
+.left-column, .right-column {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
+}
+
+.center {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 h1 {
@@ -46,28 +58,6 @@ h1 span {
     text-align: center;
 }
 
-/* === HEADSHOT COLUMNS === */
-
-.headshot-columns {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px;
-}
-
-.column {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.column img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
 /* === VIDEO === */
 
 .video iframe {
@@ -88,12 +78,25 @@ h1 span {
 .contact strong {
     letter-spacing: 1px;
 }
+
+.fade-img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="left-column">
+<img id="left-img" src="headshot1.jpg" alt="Headshot" class="fade-img">
+</div>
+
+<div class="center">
 
 <!-- NAME -->
 <h1>Vikrant <span>KALKAL</span></h1>
@@ -106,20 +109,6 @@ performances and strong cinematic presence.
 Trained in method acting and physical theatre, 
 he brings depth, intensity and authenticity to every role.
 </p>
-</div>
-
-<!-- HEADSHOT COLUMNS -->
-<div class="section">
-<div class="headshot-columns">
-<div class="column">
-<img src="headshot1.jpg" alt="Headshot 1">
-<img src="headshot2.jpg" alt="Headshot 2">
-</div>
-<div class="column">
-<img src="headshot3.jpg" alt="Headshot 3">
-<img src="headshot4.jpg" alt="Headshot 4">
-</div>
-</div>
 </div>
 
 <!-- DEMO REEL -->
@@ -142,6 +131,34 @@ title="Demo Reel - Vikrant KALKAL">
 </div>
 
 </div>
+
+<div class="right-column">
+<img id="right-img" src="headshot2.jpg" alt="Headshot" class="fade-img">
+</div>
+
+<script>
+const images = ['headshot1.jpg', 'headshot2.jpg', 'headshot3.jpg', 'headshot4.jpg'];
+let leftIndex = 0;
+let rightIndex = 1;
+
+const leftImg = document.getElementById('left-img');
+const rightImg = document.getElementById('right-img');
+
+function fadeImage(img, newSrc) {
+    img.style.opacity = 0;
+    setTimeout(() => {
+        img.src = newSrc;
+        img.style.opacity = 1;
+    }, 1000);
+}
+
+setInterval(() => {
+    leftIndex = (leftIndex + 1) % images.length;
+    fadeImage(leftImg, images[leftIndex]);
+    rightIndex = (rightIndex + 1) % images.length;
+    fadeImage(rightImg, images[rightIndex]);
+}, 3000);
+</script>
 
 </body>
 </html>
