@@ -3,197 +3,1080 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vikrant KALKAL</title>
+<title>Vikrant KALKAL — Actor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
 <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #0a0a0a;
+  --dark:     #141414;
+  --mid:      #2a2a2a;
+  --mid-lt:   #3a3a3a;
+  --gold:     #b8955a;
+  --gold-lt:  #d4b07a;
+  --gold-dim: rgba(184,149,90,0.14);
+  --white:    #f0ece3;
+  --muted:    #6e6e68;
+  --muted-lt: #9a9a92;
+  --sw:       220px;              /* side column width */
+  --font-d:   'Cormorant Garamond', Georgia, serif;
+  --font-b:   'Inter', sans-serif;
+  --ease:     cubic-bezier(.25,.46,.45,.94);
+}
+
+html { scroll-behavior: smooth; }
 body {
-    margin: 0;
-    background-image: url('background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #111;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    display: flex;
-    min-height: 100vh;
-    align-items: flex-start;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-b);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
 }
 
-.left-column, .right-column {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+/* ──────────────────────────────────────────────
+   FIXED SIDE COLUMNS  (desktop)
+   position:fixed means they stay visible the
+   entire page scroll — not just the first screen
+────────────────────────────────────────────── */
+.side-col {
+  position: fixed;
+  top: 0;
+  width: var(--sw);
+  height: 100vh;
+  overflow: hidden;
+  z-index: 10;
+  background: var(--black);
+}
+.side-col.left  { left: 0;  border-right: 1px solid var(--mid); }
+.side-col.right { right: 0; border-left:  1px solid var(--mid); }
+
+.side-strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+.side-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+  display: block;
+  cursor: zoom-in;
+  filter: brightness(.8) saturate(.85);
+  transition: filter .4s var(--ease);
+}
+.side-img:hover { filter: brightness(1) saturate(1.05); }
+
+/* ──────────────────────────────────────────────
+   CENTER CONTENT AREA
+────────────────────────────────────────────── */
+.center-wrap {
+  /* push content clear of the fixed side cols */
+  margin-left: var(--sw);
+  margin-right: var(--sw);
 }
 
-.center {
-    flex: 2;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+/* mobile photo carousel – full width, lives above center-col */
+.mobile-carousel {
+  display: none;
+  overflow: hidden;
+  width: 100%;
+  line-height: 0;
+}
+.carousel-track {
+  display: flex;
+  will-change: transform;
+}
+.carousel-track img {
+  height: 270px;
+  width: auto;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+  display: block;
+  cursor: zoom-in;
+  filter: brightness(.85);
 }
 
-h1 {
-    font-size: 48px;
-    font-weight: 300;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-bottom: 80px;
+.center-col {
+  padding: 72px 52px 80px;
+  max-width: 860px;
+  margin: 0 auto;
 }
 
-h1 span {
-    font-weight: 700;
+/* ──────────────────────────────────────────────
+   HERO
+────────────────────────────────────────────── */
+.hero { text-align: center; padding-bottom: 68px; }
+
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.hero-name {
+  font-family: var(--font-d);
+  font-size: clamp(46px, 5.5vw, 74px);
+  font-weight: 300;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+.hero-name strong { font-weight: 600; color: #fff; }
+.gold-rule { width: 36px; height: 1px; background: var(--gold); margin: 28px auto; }
+
+/* ──────────────────────────────────────────────
+   SHARED SECTION ELEMENTS
+────────────────────────────────────────────── */
+.section-label {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 26px;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--mid);
+  margin: 0 0 36px;
 }
 
-.section {
-    margin-bottom: 100px;
+/* ──────────────────────────────────────────────
+   BIO
+────────────────────────────────────────────── */
+.bio-section { padding-bottom: 68px; }
+.bio-text {
+  font-family: var(--font-d);
+  font-size: clamp(21px, 1.9vw, 25px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.95;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  color: #ddd8cf;
 }
 
-.bio {
-    font-size: 19px;
-    max-width: 750px;
-    margin: 0 auto;
-    text-align: center;
+/* ──────────────────────────────────────────────
+   PROFILE — physical stats
+────────────────────────────────────────────── */
+.profile-section { padding-bottom: 68px; }
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--mid);
+  border: 1px solid var(--mid);
+  margin-bottom: 44px;
+}
+.stat-cell {
+  background: var(--dark);
+  padding: 26px 16px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-d);
+  font-size: 34px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 7px;
+}
+.stat-num .u { font-size: 17px; color: var(--muted-lt); }
+.stat-word {
+  font-family: var(--font-d);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 7px;
+  line-height: 1.2;
+}
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-/* === VIDEO === */
-
-.video iframe {
-    width: 100%;
-    height: 550px;
-    border: none;
+/* ──────────────────────────────────────────────
+   LANGUAGES
+────────────────────────────────────────────── */
+.lang-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 44px;
+}
+.lang-item {
+  background: var(--dark);
+  border: 1px solid var(--mid);
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+.lang-name {
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 9px;
+}
+.lang-dots { display: flex; gap: 5px; }
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--mid-lt);
+}
+.dot.on { background: var(--gold); }
+.lang-level {
+  font-family: var(--font-d);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--muted-lt);
+  text-align: right;
+  white-space: nowrap;
 }
 
-/* === CONTACT === */
+/* ──────────────────────────────────────────────
+   SKILLS
+────────────────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.skill-card {
+  background: var(--dark);
+  border: 1px solid var(--mid);
+  padding: 22px 18px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .25s var(--ease);
+}
+.skill-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-dim);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.skill-card:hover::before { opacity: 1; }
+.skill-card:hover { border-color: var(--gold); }
+.skill-card:last-child { grid-column: 1 / -1; } /* Dancing fills the row */
 
-.contact {
-    text-align: center;
-    font-size: 18px;
-    border-top: 1px solid #e5e5e5;
-    padding-top: 50px;
+.sk-icon  { font-size: 22px; display: block; margin-bottom: 11px; line-height: 1; }
+.sk-name  {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  display: block;
+  margin-bottom: 5px;
+}
+.sk-badge {
+  font-family: var(--font-d);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--gold);
+  display: block;
 }
 
-.contact strong {
-    letter-spacing: 1px;
+/* ──────────────────────────────────────────────
+   VIDEO
+────────────────────────────────────────────── */
+.video-section { padding-bottom: 68px; }
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background: var(--dark);
+}
+.video-wrap iframe {
+  position: absolute;
+  inset: 0; width: 100%; height: 100%;
+  border: none;
 }
 
-.fade-img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    object-fit: cover;
-    transition: opacity 1s ease-in-out;
-    opacity: 1;
+/* ──────────────────────────────────────────────
+   CONTACT
+────────────────────────────────────────────── */
+.contact-section {
+  padding-top: 68px;
+  border-top: 1px solid var(--mid);
+}
+.contact-intro {
+  font-family: var(--font-d);
+  font-size: 21px;
+  font-style: italic;
+  color: var(--muted-lt);
+  text-align: center;
+  margin-bottom: 30px;
+}
+.contact-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-b);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border: 1px solid var(--mid);
+  color: var(--white);
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.btn:hover        { border-color: var(--gold); color: var(--gold); }
+.btn.primary      { border-color: var(--gold); color: var(--gold); }
+.btn.primary:hover{ background: var(--gold); color: var(--black); }
+.btn svg          { width: 15px; height: 15px; flex-shrink: 0; }
+
+.contact-meta {
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  line-height: 2;
 }
 
-/* Responsive design */
+/* ──────────────────────────────────────────────
+   FOOTER
+────────────────────────────────────────────── */
+.footer {
+  margin-top: 68px;
+  padding: 36px 20px 28px;
+  border-top: 1px solid var(--mid);
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--mid-lt);
+}
+
+/* ──────────────────────────────────────────────
+   MODAL
+────────────────────────────────────────────── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 500;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+.overlay.open { display: flex; }
+
+.modal {
+  background: var(--dark);
+  border: 1px solid var(--mid);
+  padding: 46px 42px 38px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+  animation: up .3s var(--ease);
+}
+@keyframes up {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.modal-x {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: none; border: none;
+  color: var(--muted);
+  font-size: 26px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color .2s;
+}
+.modal-x:hover { color: var(--white); }
+
+.modal-h {
+  font-family: var(--font-d);
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.modal-sub {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+
+.field { margin-bottom: 18px; }
+.field label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  background: var(--black);
+  border: 1px solid var(--mid);
+  color: var(--white);
+  font-family: var(--font-b);
+  font-size: 15px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .2s;
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.field input:focus,
+.field textarea:focus { border-color: var(--gold); }
+.field input.bad   { border-color: #c05050; }
+.field input::placeholder,
+.field textarea::placeholder { color: var(--muted); }
+.field textarea { height: 100px; }
+
+.ew { position: relative; }
+.echk {
+  position: absolute;
+  right: 12px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  display: none;
+}
+
+.captcha-row {
+  margin: 18px 0 16px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn-send {
+  width: 100%;
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  padding: 16px;
+  font-family: var(--font-b);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-send:hover { background: var(--gold-lt); }
+.btn-send:disabled { opacity: .42; cursor: not-allowed; }
+
+.fstatus {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 14px;
+  color: var(--gold);
+  line-height: 1.5;
+  min-height: 18px;
+}
+.fstatus.err { color: #c05050; }
+
+/* ──────────────────────────────────────────────
+   LIGHTBOX
+────────────────────────────────────────────── */
+.lbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.96);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  cursor: zoom-out;
+}
+.lbox.open { display: flex; }
+.lbox img {
+  max-width: 88vw;
+  max-height: 88vh;
+  object-fit: contain;
+  animation: up .22s var(--ease);
+  cursor: default;
+}
+.lbox-x {
+  position: absolute;
+  top: 20px; right: 26px;
+  font-size: 32px;
+  color: var(--muted);
+  cursor: pointer;
+  background: none; border: none;
+  transition: color .2s;
+  line-height: 1;
+}
+.lbox-x:hover { color: #fff; }
+
+/* ──────────────────────────────────────────────
+   MOBILE  ≤ 768px
+────────────────────────────────────────────── */
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-        min-height: auto;
-    }
-    .left-column, .right-column {
-        flex: none;
-        padding: 10px;
-        justify-content: flex-start;
-    }
-    .center {
-        flex: none;
-        padding: 10px;
-        justify-content: flex-start;
-    }
-    .fade-img {
-        max-width: 250px;
-    }
-    h1 {
-        font-size: 36px;
-        margin-bottom: 40px;
-    }
-    .section {
-        margin-bottom: 50px;
-    }
-    .video iframe {
-        height: 300px;
-    }
+  .side-col { display: none; }
+  .mobile-carousel { display: block; }
+
+  .center-wrap { margin: 0; }
+  .center-col  { padding: 44px 22px 60px; }
+
+  .hero  { padding-bottom: 48px; }
+  .hero-name { font-size: 42px; letter-spacing: 6px; }
+  .eyebrow   { font-size: 12px; }
+
+  .bio-section  { padding-bottom: 48px; }
+  .bio-text     { font-size: clamp(19px, 4.8vw, 23px); }
+
+  .profile-section { padding-bottom: 48px; }
+  .stats-row   { grid-template-columns: repeat(2, 1fr); }
+  .lang-grid   { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .skill-card:last-child { grid-column: 1 / -1; }
+
+  .video-section   { padding-bottom: 48px; }
+  .contact-section { padding-top: 48px; }
+
+  .contact-btns { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+
+  .modal { padding: 38px 20px 28px; }
+  .modal-h { font-size: 24px; }
+}
+
+@media (max-width: 420px) {
+  .skills-grid { grid-template-columns: 1fr; }
+  .hero-name   { font-size: 36px; letter-spacing: 4px; }
 }
 </style>
 </head>
-
 <body>
 
-<div class="left-column">
-<img id="left-img" src="headshot1.jpg" alt="Headshot" class="fade-img">
+<!-- ── LIGHTBOX ─────────────────────── -->
+<div class="lbox" id="lbox" onclick="if(event.target===this)lbClose()">
+  <button class="lbox-x" onclick="lbClose()">×</button>
+  <img id="lbox-img" src="" alt="">
 </div>
 
-<div class="center">
+<!-- ── CONTACT MODAL ──────────────── -->
+<div class="overlay" id="modal" onclick="if(event.target===this)mClose()">
+  <div class="modal">
+    <button class="modal-x" onclick="mClose()">×</button>
+    <h2 class="modal-h">Get in Touch</h2>
+    <p class="modal-sub">Professional inquiries welcome</p>
 
-<!-- NAME -->
-<h1>Vikrant <span>KALKAL</span></h1>
+    <div class="field">
+      <label for="fn">Name *</label>
+      <input id="fn" type="text" placeholder="Your full name" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="fe">Email *</label>
+      <div class="ew">
+        <input id="fe" type="email" placeholder="your@email.com" autocomplete="email" oninput="chkEmail(this)">
+        <span class="echk" id="echk"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="fp">Phone (optional)</label>
+      <input id="fp" type="tel" placeholder="+33 6 00 00 00 00" autocomplete="tel">
+    </div>
+    <div class="field">
+      <label for="fm">Message *</label>
+      <textarea id="fm" placeholder="Tell me about your project…"></textarea>
+    </div>
 
-<!-- BIO -->
-<div class="section bio">
-<p>
-Vikrant Kalkal is a Paris-based actor,  trained in improv and on-screen acting.  
-Currently working in 2 short films which are in post-production. Known for emotionally grounded 
-performances and strong cinematic presence.
-</p>
+    <div class="captcha-row">
+      <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001"></div>
+    </div>
 
-<br>
-
+    <button class="btn-send" id="sbtn" onclick="sendForm()">Send Message</button>
+    <div class="fstatus" id="fst"></div>
+  </div>
 </div>
 
-<!-- DEMO REEL -->
-<div class="section video">
-<div style="padding:56.25% 0 0 0;position:relative;">
-<iframe 
-src="https://player.vimeo.com/video/1162880006?badge=0&autopause=0&player_id=0&app_id=58479"
-allow="autoplay; fullscreen; picture-in-picture"
-allowfullscreen
-style="position:absolute;top:0;left:0;width:100%;height:100%;"
-title="Demo Reel - Vikrant KALKAL">
-</iframe>
-</div>
+<!-- ── LEFT SIDE COL ─────────────── -->
+<div class="side-col left">
+  <div class="side-strip" id="ls">
+    <img src="headshot1.jpg"  class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+    <img src="headshot2.jpg"  class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+    <img src="headshot3.jpeg" class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+    <img src="headshot4.jpeg" class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+  </div>
 </div>
 
-<!-- CONTACT -->
-<div class="section contact">
-<p>For professional inquiries:</p>
-<p><strong>contact@vikrantkalkal.com</strong></p>
-<p><strong>Phone : +33 752767322</strong></p>
+<!-- ── RIGHT SIDE COL ────────────── -->
+<div class="side-col right">
+  <div class="side-strip" id="rs">
+    <img src="headshot3.jpeg" class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+    <img src="headshot4.jpeg" class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+    <img src="headshot1.jpg"  class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+    <img src="headshot2.jpg"  class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+  </div>
 </div>
 
-</div>
+<!-- ── CENTER ────────────────────── -->
+<div class="center-wrap">
 
-<div class="right-column">
-<img id="right-img" src="headshot2.jpg" alt="Headshot" class="fade-img">
-</div>
+  <!-- Mobile carousel (outside center-col so it bleeds full width) -->
+  <div class="mobile-carousel">
+    <div class="carousel-track" id="ct">
+      <img src="headshot1.jpg"  alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+      <img src="headshot2.jpg"  alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+      <img src="headshot3.jpeg" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+      <img src="headshot4.jpeg" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
+    </div>
+  </div>
+
+  <div class="center-col">
+
+    <!-- HERO -->
+    <div class="hero">
+      <p class="eyebrow">Actor &nbsp;·&nbsp; Paris</p>
+      <h1 class="hero-name">Vikrant <strong>KALKAL</strong></h1>
+      <div class="gold-rule"></div>
+    </div>
+
+    <!-- BIO -->
+    <div class="bio-section">
+      <span class="section-label">About</span>
+      <p class="bio-text">
+        A robotics engineer by training — École Centrale de Nantes — and an actor by calling,
+        Vikrant has lived in both worlds. He first stepped on stage at six,
+        performing in school plays and grew with years of exposure to
+        multilingual cinema: the breadth of Indian storytelling, the precision of American and European films.
+        He went on to perform in Paris,bringing the same physical intelligence that informs his engineering to the craft of acting.
+        Currently in post-production on two short films,
+        he is building a body of work grounded in restraint, instinct,
+        and the quiet power of being fully in the room. The motto he lives by : In the pursuit of finding one's own self , one will find perfection in his acting.
+      </p>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="profile-section">
+      <span class="section-label">Profile</span>
+
+      <!-- Physical -->
+      <div class="stats-row">
+        <div class="stat-cell">
+          <div class="stat-num">183<span class="u"> cm</span></div>
+          <div class="stat-label">Height</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">75<span class="u"> kg</span></div>
+          <div class="stat-label">Weight</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-word">Brown</div>
+          <div class="stat-label">Eyes</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-word">Black</div>
+          <div class="stat-label">Hair</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- Languages -->
+      <span class="section-label">Languages</span>
+      <div class="lang-grid">
+        <div class="lang-item">
+          <div>
+            <div class="lang-name">Hindi</div>
+            <div class="lang-dots">
+              <div class="dot on"></div><div class="dot on"></div>
+              <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
+            </div>
+          </div>
+          <div class="lang-level">Mother tongue · dialects</div>
+        </div>
+        <div class="lang-item">
+          <div>
+            <div class="lang-name">English</div>
+            <div class="lang-dots">
+              <div class="dot on"></div><div class="dot on"></div>
+              <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
+            </div>
+          </div>
+          <div class="lang-level">Bilingual</div>
+        </div>
+        <div class="lang-item">
+          <div>
+            <div class="lang-name">French</div>
+            <div class="lang-dots">
+              <div class="dot on"></div><div class="dot on"></div>
+              <div class="dot on"></div><div class="dot on"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="lang-level">Fluent</div>
+        </div>
+        <div class="lang-item">
+          <div>
+            <div class="lang-name">German</div>
+            <div class="lang-dots">
+              <div class="dot on"></div><div class="dot on"></div>
+              <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="lang-level">Basic</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- Skills -->
+      <span class="section-label">Skills &amp; Sport</span>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <span class="sk-icon">🥋</span>
+          <span class="sk-name">Tae-kwon-do</span>
+          <span class="sk-badge">Black Belt · National Medalist</span>
+        </div>
+        <div class="skill-card">
+          <span class="sk-icon">🥊</span>
+          <span class="sk-name">Boxing</span>
+          <span class="sk-badge">&nbsp;</span>
+        </div>
+        <div class="skill-card">
+          <span class="sk-icon">🏃</span>
+          <span class="sk-name">Sprinting</span>
+          <span class="sk-badge">&nbsp;</span>
+        </div>
+        <div class="skill-card">
+          <span class="sk-icon">🧗</span>
+          <span class="sk-name">Climbing</span>
+          <span class="sk-badge">&nbsp;</span>
+        </div>
+        <div class="skill-card">
+          <span class="sk-icon">⚽</span>
+          <span class="sk-name">Football</span>
+          <span class="sk-badge">University Level</span>
+        </div>
+        <div class="skill-card">
+          <span class="sk-icon">🏐</span>
+          <span class="sk-name">Volleyball</span>
+          <span class="sk-badge">&nbsp;</span>
+        </div>
+        <div class="skill-card">
+          <span class="sk-icon">♟</span>
+          <span class="sk-name">Chess</span>
+          <span class="sk-badge">1600 ELO Rating</span>
+        </div>
+        <div class="skill-card">
+          <span class="sk-icon">🤿</span>
+          <span class="sk-name">Swimming &amp; Diving</span>
+          <span class="sk-badge">Backflip · up to 7.5 m</span>
+        </div>
+        <div class="skill-card">
+          <span class="sk-icon">🏙</span>
+          <span class="sk-name">Parkour</span>
+          <span class="sk-badge">&nbsp;</span>
+        </div>
+        <!-- last-child → grid-column: 1/-1 → fills remaining row -->
+        <div class="skill-card">
+          <span class="sk-icon">💃</span>
+          <span class="sk-name">Dancing</span>
+          <span class="sk-badge">Salsa · Jazz · Bollywood</span>
+        </div>
+      </div>
+    </div><!-- /profile-section -->
+
+    <!-- DEMO REEL -->
+    <div class="video-section">
+      <span class="section-label">Demo Reel</span>
+      <div class="video-wrap">
+        <iframe
+          src="https://player.vimeo.com/video/1162880006?badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          title="Demo Reel — Vikrant KALKAL">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-section">
+      <span class="section-label" style="text-align:center;">Contact</span>
+      <p class="contact-intro">Available for professional inquiries</p>
+
+      <div class="contact-btns">
+        <!-- Email form -->
+        <button class="btn primary" onclick="mOpen()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          Send Email
+        </button>
+
+        <!-- WhatsApp -->
+        <a class="btn"
+           href="https://wa.me/33752767322?text=Hi%20Vikrant%2C%20I%20found%20your%20website%20and%20would%20like%20to%20get%20in%20touch."
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp
+        </a>
+
+        <!-- Instagram -->
+        <a class="btn"
+           href="https://instagram.com/vikrant_kalkal"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/>
+          </svg>
+          Instagram
+        </a>
+
+        <!-- Call -->
+        <a class="btn" href="tel:+33752767322">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          Call
+        </a>
+      </div>
+
+      <p class="contact-meta">
+        +33 7 52 76 73 22<br>
+        contact@vikrantkalkal.com<br>
+        @vikrant_kalkal
+      </p>
+    </div>
+
+    <div class="footer">© 2025 Vikrant Kalkal &nbsp;·&nbsp; Paris</div>
+
+  </div><!-- /center-col -->
+</div><!-- /center-wrap -->
 
 <script>
-const images = ['headshot1.jpg', 'headshot2.jpg', 'headshot3.jpeg', 'headshot4.jpeg'];
-let leftIndex = 0;
-let rightIndex = 1;
-
-const leftImg = document.getElementById('left-img');
-const rightImg = document.getElementById('right-img');
-
-function fadeImage(img, newSrc) {
-    img.style.opacity = 0;
-    setTimeout(() => {
-        img.src = newSrc;
-        img.style.opacity = 1;
-    }, 1000);
+/* ════════════════════════════════════════════
+   UTILITY: wait for all imgs in a container
+════════════════════════════════════════════ */
+function waitImgs(el) {
+  const imgs = [...el.querySelectorAll('img')];
+  return Promise.all(imgs.map(img =>
+    img.complete ? Promise.resolve()
+                 : new Promise(r => { img.onload=r; img.onerror=r; })
+  ));
 }
 
-setInterval(() => {
-    leftIndex = (leftIndex + 1) % images.length;
-    fadeImage(leftImg, images[leftIndex]);
-    rightIndex = (rightIndex + 1) % images.length;
-    fadeImage(rightImg, images[rightIndex]);
-}, 3000);
-</script>
+/* ════════════════════════════════════════════
+   HORIZONTAL INFINITE CAROUSEL
+   ─ HTML has 1 set; JS clones it once.
+   ─ Loop: pos -= loopWidth (not reset to 0!)
+     That's the key to seamless scrolling.
+════════════════════════════════════════════ */
+function horizCarousel(trackEl, spd) {
+  waitImgs(trackEl).then(() => {
+    // clone original children to create 2nd set
+    [...trackEl.children].forEach(c => trackEl.appendChild(c.cloneNode(true)));
 
+    // loopWidth = width of ONE set = half total
+    const lw = trackEl.scrollWidth / 2;
+    let pos = 0;
+
+    (function tick() {
+      pos += spd;
+      if (pos >= lw) pos -= lw;   // <-- subtract, never reset to 0
+      trackEl.style.transform = `translate3d(-${pos}px,0,0)`;
+      requestAnimationFrame(tick);
+    })();
+  });
+}
+
+/* ════════════════════════════════════════════
+   VERTICAL INFINITE STRIP
+   ─ HTML has 1 set; JS clones it once.
+   ─ startFrac: fraction of loopHeight to
+     begin at (offsets the two strips visually)
+════════════════════════════════════════════ */
+function vertStrip(stripEl, spd, startFrac) {
+  waitImgs(stripEl).then(() => {
+    [...stripEl.children].forEach(c => stripEl.appendChild(c.cloneNode(true)));
+
+    const lh = stripEl.scrollHeight / 2;
+    let pos = lh * (startFrac || 0);
+    let paused = false;
+
+    stripEl.parentElement.addEventListener('mouseenter', () => paused = true);
+    stripEl.parentElement.addEventListener('mouseleave', () => paused = false);
+
+    (function tick() {
+      if (!paused) {
+        pos += spd;
+        if (pos >= lh) pos -= lh;
+        stripEl.style.transform = `translate3d(0,-${pos}px,0)`;
+      }
+      requestAnimationFrame(tick);
+    })();
+  });
+}
+
+/* ════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  // Mobile horizontal carousel
+  const ct = document.getElementById('ct');
+  if (ct) horizCarousel(ct, 0.6);
+
+  // Desktop vertical strips (only init when visible)
+  if (window.matchMedia('(min-width:769px)').matches) {
+    const ls = document.getElementById('ls');
+    const rs = document.getElementById('rs');
+    if (ls) vertStrip(ls, 0.38, 0);     // left: starts from top
+    if (rs) vertStrip(rs, 0.38, 0.5);  // right: starts from midpoint → visual offset
+  }
+});
+
+/* ════════════════════════════════════════════
+   LIGHTBOX
+════════════════════════════════════════════ */
+function lbOpen(src) {
+  document.getElementById('lbox-img').src = src;
+  document.getElementById('lbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function lbClose() {
+  document.getElementById('lbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ════════════════════════════════════════════
+   MODAL
+════════════════════════════════════════════ */
+function mOpen() {
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function mClose() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+  const s = document.getElementById('fst');
+  s.textContent = ''; s.className = 'fstatus';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { lbClose(); mClose(); }
+});
+
+/* ════════════════════════════════════════════
+   LIVE EMAIL CHECK
+════════════════════════════════════════════ */
+function chkEmail(inp) {
+  const chk = document.getElementById('echk');
+  const v = inp.value.trim();
+  if (!v) { chk.style.display='none'; inp.classList.remove('bad'); return; }
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  chk.style.display='block';
+  chk.textContent = ok ? '✓' : '✗';
+  chk.style.color  = ok ? '#7cc47c' : '#c05050';
+  inp.classList.toggle('bad', !ok);
+}
+
+/* ════════════════════════════════════════════
+   SEND FORM via Web3Forms
+   ─ Get a FREE key at https://web3forms.com
+   ─ Enter contact@vikrantkalkal.com → confirm
+   ─ Replace YOUR_KEY below
+════════════════════════════════════════════ */
+const W3_KEY = 'a0224a95-4270-443a-a453-2186ca784383';
+
+async function sendForm() {
+  const name  = document.getElementById('fn').value.trim();
+  const email = document.getElementById('fe').value.trim();
+  const phone = document.getElementById('fp').value.trim();
+  const msg   = document.getElementById('fm').value.trim();
+  const st    = document.getElementById('fst');
+  const btn   = document.getElementById('sbtn');
+
+  const err = t => { st.className='fstatus err'; st.textContent=t; };
+
+  if (!name)  return err('Please enter your name.');
+  if (!email) return err('Please enter your email address.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))
+              return err("That email doesn't look valid.");
+  if (!msg)   return err('Please write a message.');
+
+  let cap = '';
+  if (typeof hcaptcha !== 'undefined') {
+    try { cap = hcaptcha.getResponse(); } catch(e){}
+    if (!cap) return err('Please complete the CAPTCHA.');
+  }
+
+  // No key yet → fall back to mailto
+  if (W3_KEY === 'YOUR_WEB3FORMS_KEY') {
+    const s = encodeURIComponent(`Inquiry from ${name}`);
+    const b = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone||'—'}\n\n${msg}`);
+    window.open(`mailto:contact@vikrantkalkal.com?subject=${s}&body=${b}`);
+    st.className='fstatus';
+    st.textContent='Opening your email client…';
+    return;
+  }
+
+  btn.disabled = true;
+  st.className='fstatus'; st.textContent='Sending…';
+
+  try {
+    const res  = await fetch('https://api.web3forms.com/submit', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        access_key: W3_KEY,
+        subject: `Inquiry from ${name}`,
+        from_name: name, reply_to: email,
+        name, email, phone: phone||'—', message: msg,
+        'h-captcha-response': cap
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      st.textContent = "Message sent — thank you. I'll be in touch soon.";
+      ['fn','fe','fp','fm'].forEach(id => document.getElementById(id).value='');
+      document.getElementById('echk').style.display='none';
+      try { hcaptcha.reset(); } catch(e){}
+    } else throw 0;
+  } catch {
+    st.className='fstatus err';
+    st.textContent='Something went wrong. Please email contact@vikrantkalkal.com directly.';
+    try { hcaptcha.reset(); } catch(e){}
+  }
+  btn.disabled = false;
+}
+</script>
 </body>
 </html>
