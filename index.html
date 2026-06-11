@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,7 +22,7 @@
   --white:    #f0ece3;
   --muted:    #6e6e68;
   --muted-lt: #9a9a92;
-  --sw:       220px;              /* side column width */
+  --sw:       220px;
   --font-d:   'Cormorant Garamond', Georgia, serif;
   --font-b:   'Inter', sans-serif;
   --ease:     cubic-bezier(.25,.46,.45,.94);
@@ -39,11 +38,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ──────────────────────────────────────────────
-   FIXED SIDE COLUMNS  (desktop)
-   position:fixed means they stay visible the
-   entire page scroll — not just the first screen
-────────────────────────────────────────────── */
 .side-col {
   position: fixed;
   top: 0;
@@ -74,16 +68,11 @@ body {
 }
 .side-img:hover { filter: brightness(1) saturate(1.05); }
 
-/* ──────────────────────────────────────────────
-   CENTER CONTENT AREA
-────────────────────────────────────────────── */
 .center-wrap {
-  /* push content clear of the fixed side cols */
   margin-left: var(--sw);
   margin-right: var(--sw);
 }
 
-/* mobile photo carousel – full width, lives above center-col */
 .mobile-carousel {
   display: none;
   overflow: hidden;
@@ -111,11 +100,8 @@ body {
   margin: 0 auto;
 }
 
-/* ──────────────────────────────────────────────
-   HERO
-────────────────────────────────────────────── */
+/* HERO */
 .hero { text-align: center; padding-bottom: 68px; }
-
 .eyebrow {
   font-size: 13px;
   letter-spacing: 5px;
@@ -134,9 +120,7 @@ body {
 .hero-name strong { font-weight: 600; color: #fff; }
 .gold-rule { width: 36px; height: 1px; background: var(--gold); margin: 28px auto; }
 
-/* ──────────────────────────────────────────────
-   SHARED SECTION ELEMENTS
-────────────────────────────────────────────── */
+/* SHARED */
 .section-label {
   display: block;
   font-size: 13px;
@@ -151,9 +135,7 @@ body {
   margin: 0 0 36px;
 }
 
-/* ──────────────────────────────────────────────
-   BIO
-────────────────────────────────────────────── */
+/* BIO */
 .bio-section { padding-bottom: 68px; }
 .bio-text {
   font-family: var(--font-d);
@@ -167,11 +149,8 @@ body {
   color: #ddd8cf;
 }
 
-/* ──────────────────────────────────────────────
-   PROFILE — physical stats
-────────────────────────────────────────────── */
+/* PROFILE */
 .profile-section { padding-bottom: 68px; }
-
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -209,9 +188,7 @@ body {
   color: var(--muted);
 }
 
-/* ──────────────────────────────────────────────
-   LANGUAGES
-────────────────────────────────────────────── */
+/* LANGUAGES */
 .lang-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -250,9 +227,7 @@ body {
   white-space: nowrap;
 }
 
-/* ──────────────────────────────────────────────
-   SKILLS
-────────────────────────────────────────────── */
+/* SKILLS */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -276,7 +251,7 @@ body {
 }
 .skill-card:hover::before { opacity: 1; }
 .skill-card:hover { border-color: var(--gold); }
-.skill-card:last-child { grid-column: 1 / -1; } /* Dancing fills the row */
+.skill-card:last-child { grid-column: 1 / -1; }
 
 .sk-icon  { font-size: 22px; display: block; margin-bottom: 11px; line-height: 1; }
 .sk-name  {
@@ -295,9 +270,7 @@ body {
   display: block;
 }
 
-/* ──────────────────────────────────────────────
-   VIDEO
-────────────────────────────────────────────── */
+/* VIDEO */
 .video-section { padding-bottom: 68px; }
 .video-wrap {
   position: relative;
@@ -312,9 +285,7 @@ body {
   border: none;
 }
 
-/* ──────────────────────────────────────────────
-   CONTACT
-────────────────────────────────────────────── */
+/* CONTACT */
 .contact-section {
   padding-top: 68px;
   border-top: 1px solid var(--mid);
@@ -355,6 +326,7 @@ body {
 .btn.primary:hover{ background: var(--gold); color: var(--black); }
 .btn svg          { width: 15px; height: 15px; flex-shrink: 0; }
 
+/* Phone number obfuscation — shown via JS only */
 .contact-meta {
   text-align: center;
   font-size: 13px;
@@ -363,9 +335,7 @@ body {
   line-height: 2;
 }
 
-/* ──────────────────────────────────────────────
-   FOOTER
-────────────────────────────────────────────── */
+/* FOOTER */
 .footer {
   margin-top: 68px;
   padding: 36px 20px 28px;
@@ -377,9 +347,7 @@ body {
   color: var(--mid-lt);
 }
 
-/* ──────────────────────────────────────────────
-   MODAL
-────────────────────────────────────────────── */
+/* MODAL */
 .overlay {
   display: none;
   position: fixed;
@@ -475,11 +443,8 @@ body {
   display: none;
 }
 
-.captcha-row {
-  margin: 18px 0 16px;
-  display: flex;
-  justify-content: flex-start;
-}
+/* Simple honeypot-style bot protection (no external captcha service) */
+.hp-field { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
 
 .btn-send {
   width: 100%;
@@ -508,9 +473,7 @@ body {
 }
 .fstatus.err { color: #c05050; }
 
-/* ──────────────────────────────────────────────
-   LIGHTBOX
-────────────────────────────────────────────── */
+/* LIGHTBOX */
 .lbox {
   display: none;
   position: fixed;
@@ -542,9 +505,7 @@ body {
 }
 .lbox-x:hover { color: #fff; }
 
-/* ──────────────────────────────────────────────
-   MOBILE  ≤ 768px
-────────────────────────────────────────────── */
+/* MOBILE */
 @media (max-width: 768px) {
   .side-col { display: none; }
   .mobile-carousel { display: block; }
@@ -583,13 +544,13 @@ body {
 </head>
 <body>
 
-<!-- ── LIGHTBOX ─────────────────────── -->
+<!-- LIGHTBOX -->
 <div class="lbox" id="lbox" onclick="if(event.target===this)lbClose()">
   <button class="lbox-x" onclick="lbClose()">×</button>
   <img id="lbox-img" src="" alt="">
 </div>
 
-<!-- ── CONTACT MODAL ──────────────── -->
+<!-- CONTACT MODAL -->
 <div class="overlay" id="modal" onclick="if(event.target===this)mClose()">
   <div class="modal">
     <button class="modal-x" onclick="mClose()">×</button>
@@ -616,8 +577,9 @@ body {
       <textarea id="fm" placeholder="Tell me about your project…"></textarea>
     </div>
 
-    <div class="captcha-row">
-      <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001"></div>
+    <!-- Honeypot field — bots fill this, humans don't see it -->
+    <div class="hp-field" aria-hidden="true">
+      <input id="fhp" type="text" name="website" tabindex="-1" autocomplete="off">
     </div>
 
     <button class="btn-send" id="sbtn" onclick="sendForm()">Send Message</button>
@@ -625,7 +587,7 @@ body {
   </div>
 </div>
 
-<!-- ── LEFT SIDE COL ─────────────── -->
+<!-- LEFT SIDE COL -->
 <div class="side-col left">
   <div class="side-strip" id="ls">
     <img src="headshot1.jpg"  class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
@@ -635,7 +597,7 @@ body {
   </div>
 </div>
 
-<!-- ── RIGHT SIDE COL ────────────── -->
+<!-- RIGHT SIDE COL -->
 <div class="side-col right">
   <div class="side-strip" id="rs">
     <img src="headshot3.jpeg" class="side-img" alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
@@ -645,10 +607,9 @@ body {
   </div>
 </div>
 
-<!-- ── CENTER ────────────────────── -->
+<!-- CENTER -->
 <div class="center-wrap">
 
-  <!-- Mobile carousel (outside center-col so it bleeds full width) -->
   <div class="mobile-carousel">
     <div class="carousel-track" id="ct">
       <img src="headshot1.jpg"  alt="Vikrant Kalkal" onclick="lbOpen(this.src)">
@@ -667,18 +628,19 @@ body {
       <div class="gold-rule"></div>
     </div>
 
-    <!-- BIO -->
+    <!-- BIO — updated text -->
     <div class="bio-section">
       <span class="section-label">About</span>
       <p class="bio-text">
-        A robotics engineer by training — École Centrale de Nantes — and an actor by calling,
-        Vikrant has lived in both worlds. He first stepped on stage at six,
-        performing in school plays and grew with years of exposure to
-        multilingual cinema: the breadth of Indian storytelling, the precision of American and European films.
-        He went on to perform in Paris,bringing the same physical intelligence that informs his engineering to the craft of acting.
-        Currently in post-production on two short films,
-        he is building a body of work grounded in restraint, instinct,
-        and the quiet power of being fully in the room. The motto he lives by : In the pursuit of finding one's own self , one will find perfection in his acting.
+        Robotics engineer by training and actor by instinct, Vikrant KalKal has lived between two worlds,
+        bringing the precision of engineering and the spontaneity of performance into his work.
+        He began acting on stage at the age of six, through school plays, and since then has been shaped
+        by a deep exposure to multilingual cinema, from the richness of Indian storytelling to the precision
+        of American and European films. Based in Paris, he has performed with a physical awareness and
+        discipline that gives his acting a grounded, intuitive quality. He is currently in post-production
+        on two short films headed for the festival circuit, continuing to build a body of work rooted in
+        restraint, instinct, and presence. Guided by the belief that in the pursuit of finding oneself,
+        one discovers perfection in acting, Vikrant approaches each role with honesty, curiosity, and quiet conviction.
       </p>
     </div>
 
@@ -686,7 +648,6 @@ body {
     <div class="profile-section">
       <span class="section-label">Profile</span>
 
-      <!-- Physical -->
       <div class="stats-row">
         <div class="stat-cell">
           <div class="stat-num">183<span class="u"> cm</span></div>
@@ -708,7 +669,6 @@ body {
 
       <hr class="divider">
 
-      <!-- Languages -->
       <span class="section-label">Languages</span>
       <div class="lang-grid">
         <div class="lang-item">
@@ -755,7 +715,6 @@ body {
 
       <hr class="divider">
 
-      <!-- Skills -->
       <span class="section-label">Skills &amp; Sport</span>
       <div class="skills-grid">
         <div class="skill-card">
@@ -803,14 +762,13 @@ body {
           <span class="sk-name">Parkour</span>
           <span class="sk-badge">&nbsp;</span>
         </div>
-        <!-- last-child → grid-column: 1/-1 → fills remaining row -->
         <div class="skill-card">
           <span class="sk-icon">💃</span>
           <span class="sk-name">Dancing</span>
           <span class="sk-badge">Salsa · Jazz · Bollywood</span>
         </div>
       </div>
-    </div><!-- /profile-section -->
+    </div>
 
     <!-- DEMO REEL -->
     <div class="video-section">
@@ -831,7 +789,6 @@ body {
       <p class="contact-intro">Available for professional inquiries</p>
 
       <div class="contact-btns">
-        <!-- Email form -->
         <button class="btn primary" onclick="mOpen()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
             <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -839,17 +796,14 @@ body {
           Send Email
         </button>
 
-        <!-- WhatsApp -->
-        <a class="btn"
-           href="https://wa.me/33752767322?text=Hi%20Vikrant%2C%20I%20found%20your%20website%20and%20would%20like%20to%20get%20in%20touch."
-           target="_blank" rel="noopener">
+        <!-- WhatsApp link built by JS to avoid phone number scraping -->
+        <a class="btn" id="wa-btn" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
           WhatsApp
         </a>
 
-        <!-- Instagram -->
         <a class="btn"
            href="https://instagram.com/vikrant_kalkal"
            target="_blank" rel="noopener">
@@ -861,8 +815,8 @@ body {
           Instagram
         </a>
 
-        <!-- Call -->
-        <a class="btn" href="tel:+33752767322">
+        <!-- Call link built by JS -->
+        <a class="btn" id="call-btn" href="#">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
             <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
           </svg>
@@ -870,22 +824,43 @@ body {
         </a>
       </div>
 
-      <p class="contact-meta">
-        +33 7 52 76 73 22<br>
-        contact@vikrantkalkal.com<br>
-        @vikrant_kalkal
-      </p>
+      <!-- Contact details rendered by JS only (not in HTML source) -->
+      <p class="contact-meta" id="contact-meta"></p>
     </div>
 
     <div class="footer">© 2025 Vikrant Kalkal &nbsp;·&nbsp; Paris</div>
 
-  </div><!-- /center-col -->
-</div><!-- /center-wrap -->
+  </div>
+</div>
 
 <script>
-/* ════════════════════════════════════════════
-   UTILITY: wait for all imgs in a container
-════════════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   CONTACT INFO — obfuscated from scrapers
+   Split across variables, assembled at runtime
+═══════════════════════════════════════ */
+(function() {
+  const p1 = '337527', p2 = '67322';
+  const e1 = 'contact', e2 = 'vikrantkalkal', e3 = 'com';
+  const phone = '+' + p1 + p2;
+  const email = e1 + '@' + e2 + '.' + e3;
+
+  // WhatsApp button
+  const waMsg = encodeURIComponent('Hi Vikrant, I found your website and would like to get in touch.');
+  document.getElementById('wa-btn').href = 'https://wa.me/' + p1 + p2 + '?text=' + waMsg;
+
+  // Call button
+  document.getElementById('call-btn').href = 'tel:+' + p1 + p2;
+
+  // Contact meta block
+  document.getElementById('contact-meta').innerHTML =
+    '<span id="ph-display">' + phone + '</span><br>' +
+    '<span id="em-display">' + email + '</span><br>' +
+    '@vikrant_kalkal';
+})();
+
+/* ═══════════════════════════════════════
+   CAROUSEL — horizontal (mobile)
+═══════════════════════════════════════ */
 function waitImgs(el) {
   const imgs = [...el.querySelectorAll('img')];
   return Promise.all(imgs.map(img =>
@@ -894,47 +869,31 @@ function waitImgs(el) {
   ));
 }
 
-/* ════════════════════════════════════════════
-   HORIZONTAL INFINITE CAROUSEL
-   ─ HTML has 1 set; JS clones it once.
-   ─ Loop: pos -= loopWidth (not reset to 0!)
-     That's the key to seamless scrolling.
-════════════════════════════════════════════ */
 function horizCarousel(trackEl, spd) {
   waitImgs(trackEl).then(() => {
-    // clone original children to create 2nd set
     [...trackEl.children].forEach(c => trackEl.appendChild(c.cloneNode(true)));
-
-    // loopWidth = width of ONE set = half total
     const lw = trackEl.scrollWidth / 2;
     let pos = 0;
-
     (function tick() {
       pos += spd;
-      if (pos >= lw) pos -= lw;   // <-- subtract, never reset to 0
+      if (pos >= lw) pos -= lw;
       trackEl.style.transform = `translate3d(-${pos}px,0,0)`;
       requestAnimationFrame(tick);
     })();
   });
 }
 
-/* ════════════════════════════════════════════
-   VERTICAL INFINITE STRIP
-   ─ HTML has 1 set; JS clones it once.
-   ─ startFrac: fraction of loopHeight to
-     begin at (offsets the two strips visually)
-════════════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   STRIP — vertical (desktop)
+═══════════════════════════════════════ */
 function vertStrip(stripEl, spd, startFrac) {
   waitImgs(stripEl).then(() => {
     [...stripEl.children].forEach(c => stripEl.appendChild(c.cloneNode(true)));
-
     const lh = stripEl.scrollHeight / 2;
     let pos = lh * (startFrac || 0);
     let paused = false;
-
     stripEl.parentElement.addEventListener('mouseenter', () => paused = true);
     stripEl.parentElement.addEventListener('mouseleave', () => paused = false);
-
     (function tick() {
       if (!paused) {
         pos += spd;
@@ -946,26 +905,24 @@ function vertStrip(stripEl, spd, startFrac) {
   });
 }
 
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════
    INIT
-════════════════════════════════════════════ */
+═══════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', () => {
-  // Mobile horizontal carousel
   const ct = document.getElementById('ct');
   if (ct) horizCarousel(ct, 0.6);
 
-  // Desktop vertical strips (only init when visible)
   if (window.matchMedia('(min-width:769px)').matches) {
     const ls = document.getElementById('ls');
     const rs = document.getElementById('rs');
-    if (ls) vertStrip(ls, 0.38, 0);     // left: starts from top
-    if (rs) vertStrip(rs, 0.38, 0.5);  // right: starts from midpoint → visual offset
+    if (ls) vertStrip(ls, 0.38, 0);
+    if (rs) vertStrip(rs, 0.38, 0.5);
   }
 });
 
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════
    LIGHTBOX
-════════════════════════════════════════════ */
+═══════════════════════════════════════ */
 function lbOpen(src) {
   document.getElementById('lbox-img').src = src;
   document.getElementById('lbox').classList.add('open');
@@ -976,9 +933,9 @@ function lbClose() {
   document.body.style.overflow = '';
 }
 
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════
    MODAL
-════════════════════════════════════════════ */
+═══════════════════════════════════════ */
 function mOpen() {
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -994,9 +951,9 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { lbClose(); mClose(); }
 });
 
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════
    LIVE EMAIL CHECK
-════════════════════════════════════════════ */
+═══════════════════════════════════════ */
 function chkEmail(inp) {
   const chk = document.getElementById('echk');
   const v = inp.value.trim();
@@ -1008,12 +965,12 @@ function chkEmail(inp) {
   inp.classList.toggle('bad', !ok);
 }
 
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════
    SEND FORM via Web3Forms
-   ─ Get a FREE key at https://web3forms.com
-   ─ Enter contact@vikrantkalkal.com → confirm
-   ─ Replace YOUR_KEY below
-════════════════════════════════════════════ */
+   — hCaptcha removed (was breaking the form)
+   — Honeypot field added for bot protection
+   — Web3Forms has its own spam filtering
+═══════════════════════════════════════ */
 const W3_KEY = 'a0224a95-4270-443a-a453-2186ca784383';
 
 async function sendForm() {
@@ -1021,10 +978,18 @@ async function sendForm() {
   const email = document.getElementById('fe').value.trim();
   const phone = document.getElementById('fp').value.trim();
   const msg   = document.getElementById('fm').value.trim();
+  const honey = document.getElementById('fhp').value.trim();
   const st    = document.getElementById('fst');
   const btn   = document.getElementById('sbtn');
 
   const err = t => { st.className='fstatus err'; st.textContent=t; };
+
+  // Honeypot check — if filled, silently reject (it's a bot)
+  if (honey) {
+    st.className='fstatus';
+    st.textContent="Message sent — thank you. I'll be in touch soon.";
+    return;
+  }
 
   if (!name)  return err('Please enter your name.');
   if (!email) return err('Please enter your email address.');
@@ -1032,35 +997,22 @@ async function sendForm() {
               return err("That email doesn't look valid.");
   if (!msg)   return err('Please write a message.');
 
-  let cap = '';
-  if (typeof hcaptcha !== 'undefined') {
-    try { cap = hcaptcha.getResponse(); } catch(e){}
-    if (!cap) return err('Please complete the CAPTCHA.');
-  }
-
-  // No key yet → fall back to mailto
-  if (W3_KEY === 'YOUR_WEB3FORMS_KEY') {
-    const s = encodeURIComponent(`Inquiry from ${name}`);
-    const b = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone||'—'}\n\n${msg}`);
-    window.open(`mailto:contact@vikrantkalkal.com?subject=${s}&body=${b}`);
-    st.className='fstatus';
-    st.textContent='Opening your email client…';
-    return;
-  }
-
   btn.disabled = true;
   st.className='fstatus'; st.textContent='Sending…';
 
   try {
-    const res  = await fetch('https://api.web3forms.com/submit', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         access_key: W3_KEY,
         subject: `Inquiry from ${name}`,
-        from_name: name, reply_to: email,
-        name, email, phone: phone||'—', message: msg,
-        'h-captcha-response': cap
+        from_name: name,
+        reply_to: email,
+        name, email,
+        phone: phone || '—',
+        message: msg,
+        botcheck: ''   // tells Web3Forms honeypot is in use
       })
     });
     const data = await res.json();
@@ -1068,12 +1020,13 @@ async function sendForm() {
       st.textContent = "Message sent — thank you. I'll be in touch soon.";
       ['fn','fe','fp','fm'].forEach(id => document.getElementById(id).value='');
       document.getElementById('echk').style.display='none';
-      try { hcaptcha.reset(); } catch(e){}
-    } else throw 0;
-  } catch {
+    } else {
+      throw new Error(data.message || 'Unknown error');
+    }
+  } catch(e) {
     st.className='fstatus err';
-    st.textContent='Something went wrong. Please email contact@vikrantkalkal.com directly.';
-    try { hcaptcha.reset(); } catch(e){}
+    st.textContent='Something went wrong. Please try again or email directly.';
+    console.error('Web3Forms error:', e);
   }
   btn.disabled = false;
 }
